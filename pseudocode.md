@@ -83,3 +83,5 @@ END IF
                 "0"
     "]"
 ```
+
+## B6: EBNF Form
