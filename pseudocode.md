@@ -83,7 +83,11 @@ END IF
                 "0"
     "]"
 ```
+## B5: Is the grammar ambiguous 
+```text
 
+
+```
 ## B6: EBNF Form
 ```text
 list = "["elements"]";
