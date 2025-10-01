@@ -25,18 +25,18 @@ public class LexicalAnalyzer {
         // Check if keyword
         for (String kw : keywords) {
             if (token.equals(kw)) {
-                return "Token: " + token + " → Keyword";
+                return "Token: " + token + " -> Keyword";
             }
         }
 
         // Check if positive integer
         if (token.matches("[1-9][0-9]*")) {
-            return "Token: " + token + " → Positive Integer";
+            return "Token: " + token + " -> Positive Integer";
         }
 
         // Check if identifier (e.g., variable name)
         if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
-            return "Token: " + token + " → Identifier";
+            return "Token: " + token + " -> Identifier";
         }
 
         // If none of the above, invalid
