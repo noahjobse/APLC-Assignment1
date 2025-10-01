@@ -1,7 +1,7 @@
 # Team Roles & Work Plan
 
 ### Part A: History of Programming Languages
-**Lead & Completed by: Yisong**  
+**Lead & Completed by: Qi**  
 - Presentation on chosen history of programming languages topic.  
 - Researched using journals, industry publications, and credible online resources.  
 - Created 10–15 slide PowerPoint/PDF with references and citations.  
@@ -29,7 +29,7 @@ Deliverable: Markdown/PDF document in repo (`/docs/PartB_Syntax.md`).
 ---
 
 ### Part C: Lexical Analyzer
-**Lead & Completed by: Qi**  
+**Lead & Completed by: Yisong**  
 - Implemented the lexical analyzer in Java.  
 - Handled multiple inputs and validation.  
 - Added error handling and comments for clarity.  
@@ -76,7 +76,7 @@ It demonstrates fundamental Java concepts such as arrays, loops, conditional che
 
    ```bash
    javac test.java
-````
+```
 
 2. **Run the program**:
 
