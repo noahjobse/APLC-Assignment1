@@ -1,9 +1,47 @@
+# Team Roles & Work Plan
 
+### Part A: History of Programming Languages
+**Lead & Completed by: Qi**  
+- Presentation on chosen history of programming languages topic.  
+- Researched using journals, industry publications, and credible online resources.  
+- Created 10–15 slide PowerPoint/PDF with references and citations.  
+- Deliverable: Presentation uploaded to `/presentation` and submitted to Brightspace.  
 
-# 🧠 Java Lexical Analyzer
+---
 
-## 📌 Overview
-This project implements a simple **Lexical Analyzer (词法分析器)** in Java.  
+### Part B: Syntax Description
+**Step B1–B4 (Noah)**  
+- Wrote pseudocode to solve the average problem.  
+- Defined BNF grammar.  
+- Constructed initial parse tree.  
+- Ensured basic correctness of syntax.  
+
+**Step B5–B6 (Troy)**  
+- Rewrote grammar in EBNF for clarity.  
+- Removed ambiguities and reconstructed the parse tree.  
+
+**Step B7 (Emmanuel)**  
+- Compared the BNF and EBNF parse trees.  
+- Analyzed and explained impact of modifications.  
+
+Deliverable: Markdown/PDF document in repo (`/docs/PartB_Syntax.md`).  
+
+---
+
+### Part C: Lexical Analyzer
+**Lead & Completed by: Yisong**  
+- Implemented the lexical analyzer in Java.  
+- Handled multiple inputs and validation.  
+- Added error handling and comments for clarity.  
+- Tested with valid, invalid, and edge cases.  
+- Deliverable: Source code in `/src/` with documentation and example I/O.  
+
+---
+
+## Java Lexical Analyzer
+
+### Overview
+This project implements a simple **Lexical Analyzer** in Java.  
 It reads user input (tokens) from the console and classifies them into categories such as:
 
 - ✅ **Keywords** (e.g., `if`, `class`, `public`)  
@@ -15,7 +53,7 @@ This project demonstrates the **lexical analysis phase** of a compiler — the f
 
 ---
 
-## 🛠️ Features
+### Features
 - 🔎 Classifies user input into token types:
   - Keywords
   - Positive Integers
@@ -28,13 +66,13 @@ This project demonstrates the **lexical analysis phase** of a compiler — the f
 
 ---
 
-## 🧰 Technologies Used
+### Technologies Used
 - Language: **Java 17+**
 - Tools: Any Java IDE (IntelliJ IDEA / Eclipse / VS Code) or terminal compiler (`javac`)
 
 ---
 
-## 📂 Project Structure
+### Project Structure
 
 ```
 
@@ -48,7 +86,7 @@ LexicalAnalyzer/
 
 ---
 
-## 🚀 How to Run
+### How to Run
 
 1. **Compile the program:**
 ```bash
@@ -66,7 +104,7 @@ java LexicalAnalyzer
 
 ---
 
-## 💡 Example Usage
+### Example Usage
 
 ```
 Enter tokens to analyze (type 'exit' to quit):
@@ -89,7 +127,7 @@ Lexical analysis finished.
 
 ---
 
-## 🔎 Token Classification Rules
+### Token Classification Rules
 
 | Token Type           | Rule / Regex                       | Example        |
 | -------------------- | ---------------------------------- | -------------- |
@@ -100,7 +138,7 @@ Lexical analysis finished.
 
 ---
 
-## 🧪 Sample Test Cases
+### Sample Test Cases
 
 | Input     | Expected Output                            |
 | --------- | ------------------------------------------ |
@@ -114,26 +152,36 @@ Lexical analysis finished.
 
 ---
 
-## 📊 Program Flow
+### Program Flow
 
-1. 🧑‍💻 User inputs a token
-2. 🔍 Analyzer checks:
+1. User inputs a token
+2. Analyzer checks:
 
    * Is it empty?
    * Is it a keyword?
    * Is it a positive integer?
    * Is it a valid identifier?
-3. 📤 Program outputs the classification or an error message
-4. 🔁 Repeat until user enters `exit`
+   
+3. Program outputs the classification or an error message
+4. Repeat until user enters `exit`
 
 ---
 
-## 👨‍💻 Author
+### Collaboration Guidelines
 
-**Your Name**
-📘 Course: Compiler Design / Programming Languages
-📅 Date: October 2025
+* **Repository:** All code and docs stored in shared GitHub repo.
+* **Branching:** Each member used their own branch and merged via PRs.
+* **Reviews:** At least one teammate reviewed work before merging.
+* **Meetings:** Check-ins scheduled to keep progress aligned.
 
 ---
 
+### Deliverables Summary
 
+* **Qi** → Presentation (Part A).
+* **Noah** → Syntax Part B (steps B1–B4).
+* **Troy** → Syntax Part B (steps B5–B6).
+* **Emmanuel** → Syntax Part B (step B7).
+* **Yisong** → Lexical analyzer code (Part C).
+
+```
