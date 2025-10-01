@@ -1,101 +1,139 @@
-# APLC-Assignment1
 
-# Positive Integer Validator (Java)
 
-This simple Java program checks whether a user’s input is a **valid positive integer**.  
-It demonstrates fundamental Java concepts such as arrays, loops, conditional checks, and `Scanner` input handling.
+# 🧠 Java Lexical Analyzer
 
----
+## 📌 Overview
+This project implements a simple **Lexical Analyzer (词法分析器)** in Java.  
+It reads user input (tokens) from the console and classifies them into categories such as:
 
-## Features
+- ✅ **Keywords** (e.g., `if`, `class`, `public`)  
+- ✅ **Positive Integers** (e.g., `123`, `42`)  
+- ✅ **Identifiers** (e.g., `myVar`, `_name`)  
+- ❌ Invalid tokens (e.g., `123abc`, `@hello`)
 
-- Prompts the user to input a value.
-- Checks if the input is **non-empty**.
-- Ensures the input does **not start with `0`** (unless it is exactly `"0"`, which is invalid here).
-- Ensures the input consists **only of digits** (`0-9`).
-- Rejects `"0"` as it is **not considered a positive integer**.
-- Provides clear output messages indicating whether the input is valid.
+This project demonstrates the **lexical analysis phase** of a compiler — the first step in translating source code into executable programs.
 
 ---
 
-## File Structure
-
-├── test.java # Main Java program file
-
-└── README.md # Project documentation
-
-## How to Run
-
-1. **Compile the program**:
-
-   javac test.java
-
-2. **Run the program**:
-   
-   java test
-   
-3. **Enter a value when prompted**:
-
-   input a positive integer:
-   
----
-
-## Logic Explanation
-
-The program uses the following logic flow:
-
-**Input Handling**
-
-   Reads user input as a `String`
-
-**Validation Checks**
-
-   ✅ Not empty
-
-   ✅ Does not start with "0" if length > 1
-
-   ✅ Not equal to "0"
-
-   ✅ Every character is a digit (0-9)
-
-**Result Output**
-
-   If all checks pass → "Input is a positive integer"
-
-   Otherwise → "Please input a validate positive integer"
-   
----
-   
-## Example Usage
-
-**Input 1:**
-
-    input a positive integer:
-    123
-
-**Output**
-
-    Input is a positive integer
+## 🛠️ Features
+- 🔎 Classifies user input into token types:
+  - Keywords
+  - Positive Integers
+  - Identifiers
+  - Invalid Tokens
+- ✍️ Uses regular expressions for lexical pattern matching.
+- 🧪 Includes error handling for empty or invalid input.
+- 🔄 Accepts unlimited tokens until user types `exit`.
+- 💬 Provides clear feedback messages to users.
 
 ---
 
-**Input 2:**
-
-    input a positive integer:
-    0123
-
-**Output**
-
-    Please input a validate positive integer
+## 🧰 Technologies Used
+- Language: **Java 17+**
+- Tools: Any Java IDE (IntelliJ IDEA / Eclipse / VS Code) or terminal compiler (`javac`)
 
 ---
 
-**Input 3:**
+## 📂 Project Structure
 
-    input a positive integer:
-    01*^${}where '1=1'
+```
 
-**Output**
+LexicalAnalyzer/
+│
+├── src/
+│   └── LexicalAnalyzer.java   # Main lexical analyzer program
+└── README.md                  # Documentation
 
-    Please input a validate positive integer
+````
+
+---
+
+## 🚀 How to Run
+
+1. **Compile the program:**
+```bash
+javac LexicalAnalyzer.java
+````
+
+2. **Run the program:**
+
+```bash
+java LexicalAnalyzer
+```
+
+3. **Provide tokens as input:**
+   The program will repeatedly ask for tokens until you type `exit`.
+
+---
+
+## 💡 Example Usage
+
+```
+Enter tokens to analyze (type 'exit' to quit):
+
+Input: if
+Token: if → Keyword
+
+Input: 123
+Token: 123 → Positive Integer
+
+Input: myVariable
+Token: myVariable → Identifier
+
+Input: 0123
+[Error] "0123" is not a valid token.
+
+Input: exit
+Lexical analysis finished.
+```
+
+---
+
+## 🔎 Token Classification Rules
+
+| Token Type           | Rule / Regex                       | Example        |
+| -------------------- | ---------------------------------- | -------------- |
+| **Keyword**          | Must match a reserved word in Java | `if`, `while`  |
+| **Positive Integer** | `^[1-9][0-9]*$`                    | `5`, `12345`   |
+| **Identifier**       | `^[a-zA-Z_][a-zA-Z0-9_]*$`         | `x`, `_name1`  |
+| **Invalid**          | Any token not matching the above   | `123abc`, `@a` |
+
+---
+
+## 🧪 Sample Test Cases
+
+| Input     | Expected Output                            |
+| --------- | ------------------------------------------ |
+| `if`      | Token: if → Keyword                        |
+| `class`   | Token: class → Keyword                     |
+| `123`     | Token: 123 → Positive Integer              |
+| `0`       | ❌ `[Error] "0" is not a valid token.`      |
+| `_abc`    | Token: _abc → Identifier                   |
+| `123abc`  | ❌ `[Error] "123abc" is not a valid token.` |
+| *(empty)* | ❌ `[Error] Empty input is not valid.`      |
+
+---
+
+## 📊 Program Flow
+
+1. 🧑‍💻 User inputs a token
+2. 🔍 Analyzer checks:
+
+   * Is it empty?
+   * Is it a keyword?
+   * Is it a positive integer?
+   * Is it a valid identifier?
+3. 📤 Program outputs the classification or an error message
+4. 🔁 Repeat until user enters `exit`
+
+---
+
+## 👨‍💻 Author
+
+**Your Name**
+📘 Course: Compiler Design / Programming Languages
+📅 Date: October 2025
+
+---
+
 
