@@ -172,10 +172,10 @@ Please input a valid positive integer
 
 ### Deliverables Summary
 
-* **Yisong** → Presentation (Part A).
+* **Qi** → Presentation (Part A).
 * **Noah** → Syntax Part B (steps B1–B4).
 * **Troy** → Syntax Part B (steps B5–B6).
 * **Emmanuel** → Syntax Part B (step B7).
-* **Qi** → Lexical analyzer code (Part C).
+* **Yisong** → Lexical analyzer code (Part C).
 
 ```
