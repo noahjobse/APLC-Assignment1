@@ -56,9 +56,9 @@ public class test {
 
         // output result
         if (isPositiveInteger) {
-            System.out.println("input is a positive integer");
+            System.out.println("Input is a positive integer");
         } else {
-            System.out.println("input is not a positive integer");
+            System.out.println("Please input a validate positive integer");
         }
 
         //close Scanner
