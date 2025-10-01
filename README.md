@@ -93,7 +93,7 @@ The program uses the following logic flow:
 **Input 3:**
 
     input a positive integer:
-    01*^${where '1=1'
+    01*^${}where '1=1'
 
 **Output**
 
