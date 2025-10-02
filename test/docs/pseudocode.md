@@ -85,7 +85,8 @@ END IF
 ```
 ## B5: Is the grammar ambiguous 
 ```text
-The grammar of the parse tree is unambiguous because each input is clearly defined. Commas separate the elements, and multi-digit numbers like 12 are clearly shown. Ambiguity could happen if the grammar weas written differently for example, by allowing the  <elements> ::= <elements> "," <elements>. In that case, an input like 1,2,3 could be interpreted as either (1, (2, 3)) or ((1, 2), 3). Similarly, different interpretations might occur if commas were grouped in different ways or if digits were aplit differently 
+The grammar of the parse tree is unambiguous because each input is clearly defined. Commas separate the elements, and multi-digit numbers like 12 are clearly shown.
+Ambiguity could happen if the grammar weas written differently for example, by allowing the  <elements> ::= <elements> "," <elements>. In that case, an input like 1,2,3 could be interpreted as either (1, (2, 3)) or ((1, 2), 3). Similarly, different interpretations might occur if commas were grouped in different ways or if digits were aplit differently 
 
 ```
 ## B6: EBNF Form
