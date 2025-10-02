@@ -91,7 +91,7 @@ Ambiguity could happen if the grammar weas written differently for example,
 by allowing the  <elements> ::= <elements> "," <elements>.
 In that case, an input like 1,2,3 could be interpreted as either (1, (2, 3)) or ((1, 2), 3).
 Similarly, different interpretations might occur
-if commas were grouped in different ways or if digits were aplit differently 
+if commas were grouped in different ways or if digits were split differently 
 
 ```
 ## B6: EBNF Form
