@@ -127,5 +127,12 @@ digit = "0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9";
                 "0"
     "]"
 	
-Compared to the BNF parse tree in B4, the EBNF tree above does not contain ambiguity. Such as in the BNF tree the <elements> list and "," <number> pair is ambiguous. This impacts the EBNF tree structure by discarding extra uses of <elements> and <number> that may lead to misinterpretation and more parse trees. To solve this in the EBNF tree, extra uses of <elements> are discarded which better shows the child components and length of <elements>. It also includes the repetitons of the pair "," and <number> into braces: {","<number>} and removes the extra uses of <number> for the double digit numbers in the array, which better clarifies the amount of digits in a number. 
+Compared to the BNF parse tree in B4, the EBNF tree above does not contain ambiguity.
+Such as in the BNF tree the <elements> list and "," <number> pair is ambiguous.
+This impacts the EBNF tree structure by discarding extra uses of <elements> and <number> that may
+lead to misinterpretation and more parse trees. To solve this in the EBNF tree, extra uses of
+<elements> are discarded which better shows the child components and length of <elements>.
+It also includes the repetitons of the pair "," and <number> into braces: {","<number>} and removes
+the extra uses of <number> for the double digit numbers in the array,
+which better clarifies the amount of digits in a number. 
 ```
