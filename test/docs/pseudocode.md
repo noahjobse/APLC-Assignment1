@@ -85,7 +85,7 @@ END IF
 ```
 ## B5: Is the grammar ambiguous 
 ```text
-
+The grammar of the parse tree is unambiguous because each input is clearly defined. Commas separate the elements, and multi-digit numbers like 12 are clearly shown. Ambiguity could happen if the grammar weas written differently for example, by allowing the  <elements> ::= <elements> "," <elements>. In that case, an input like 1,2,3 could be interpreted as either (1, (2, 3)) or ((1, 2), 3). Similarly, different interpretations might occur if commas were grouped in different ways or if digits were aplit differently 
 
 ```
 ## B6: EBNF Form
@@ -95,6 +95,8 @@ elements = number {";" number} ;
 number = digit {digit};
 digit = "0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9";
 
+
+The benefits of using EBNF over BNF is it being more clear and easier to read compared to BNF it also removes most abiguity by showing repetition. There is also more flexibility when it comes to grammar 
 ```
 ## B7: EBNF Form Parse Tree
 ```text
