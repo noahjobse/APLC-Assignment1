@@ -2,30 +2,50 @@ import java.util.*;
 
 public class LexicalAnalyzer {
 
+    // --- Reserved keywords in Java ---
     private static final Set<String> KEYWORDS = new HashSet<>(Arrays.asList(
-            "if","else","switch","case","default","for","while","do","break","continue","return",
-            "int","double","float","char","boolean","long","short","byte","void",
-            "public","private","protected","static","final","abstract",
-            "class","interface","extends","implements","new","this","super",
-            "import","package","try","catch","throw","throws","finally"
+        "if","else","switch","case","default","for","while","do","break","continue","return",
+        "int","double","float","char","boolean","long","short","byte","void",
+        "public","private","protected","static","final","abstract",
+        "class","interface","extends","implements","new","this","super",
+        "import","package","try","catch","throw","throws","finally"
     ));
 
-    // ---- single word ----
+    /**
+     * Analyze a single token (identifier, keyword, number, etc.)
+     */
     public String analyzeToken(String token) {
         if (token.isEmpty()) return "[Error] Empty input is not valid.";
+
+        // Check if it's a reserved keyword
         if (KEYWORDS.contains(token)) return "Token: " + token + " -> Keyword";
-        if (token.matches("[1-9][0-9]*")) return "Token: " + token + " -> Positive Integer";
+
+        // Integer literal (0 and positive numbers)
+        if (token.matches("0|[1-9][0-9]*")) return "Token: " + token + " -> Integer Literal";
+
+        // Decimal literal
+        if (token.matches("[0-9]+\\.[0-9]+")) return "Token: " + token + " -> Decimal Literal";
+
+        // Identifier (variable name)
         if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) return "Token: " + token + " -> Identifier";
+
+        // Operators and punctuation
+        if (token.matches("[=+\\-*/;()]")) return "Token: " + token + " -> Operator/Punctuation";
+
+        // Otherwise: invalid token
         return "[Error] \"" + token + "\" is not a valid token.";
     }
 
-    // ---- split statements ----
+    /**
+     * Splits code into separate statements using ';' as delimiter
+     */
     private List<String> splitStatements(String code) {
         List<String> statements = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
+
         for (char c : code.toCharArray()) {
             sb.append(c);
-            if (c == ';') {
+            if (c == ';') { // end of statement
                 statements.add(sb.toString().trim());
                 sb.setLength(0);
             }
@@ -34,23 +54,24 @@ public class LexicalAnalyzer {
         return statements;
     }
 
-    // ---- single statements ----
+    /**
+     * Analyzes a single declaration or assignment statement.
+     * Grammar (simplified from Part B):
+     * <stmt> ::= <type> <id> ; | <type> <id> = <number> ;
+     */
     private void analyzeSingleStatement(String stmt) throws IllegalArgumentException {
         stmt = stmt.trim();
         if (stmt.isEmpty()) return;
 
-
-        //statement structure
-        String pattern = "^(int|double|float|char|boolean|long|short|byte)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*(=\\s*([0-9]+))?;$";
+        // Regex for declarations with optional initialization
+        String pattern = "^(int|double|float|char|boolean|long|short|byte)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*(=\\s*([0-9]+|[0-9]+\\.[0-9]+))?;$";
 
         if (!stmt.matches(pattern)) {
             throw new IllegalArgumentException("Invalid statement: " + stmt);
         }
 
-
+        // Parse structure
         String type, var, operator = null, value = null;
-
-
         String clean = stmt.substring(0, stmt.length() - 1).trim();
 
         if (clean.contains("=")) {
@@ -67,14 +88,20 @@ public class LexicalAnalyzer {
             var = parts[1];
         }
 
-        System.out.println("---- Syntax Tree ----");
-        System.out.println("type: " + type);
-        System.out.println("var: " + var);
-        System.out.println("operator: " + operator);
-        System.out.println("value: " + value);
+        // Print a simple parse tree
+        System.out.println("---- Parse Tree ----");
+        System.out.println("Statement");
+        System.out.println(" ├── Type: " + type);
+        System.out.println(" ├── Identifier: " + var);
+        if (operator != null) {
+            System.out.println(" ├── Operator: " + operator);
+            System.out.println(" └── Value: " + value);
+        }
     }
 
-    // ---- multiple statements ----
+    /**
+     * Analyzes multiple statements separated by semicolons
+     */
     public void analyzeMultipleStatements(String code) {
         List<String> statements = splitStatements(code);
         for (String stmt : statements) {
@@ -86,12 +113,14 @@ public class LexicalAnalyzer {
         }
     }
 
-    // ---- Main ----
+    /**
+     * Main loop: accept user input until "exit"
+     */
     public static void main(String[] args) {
         LexicalAnalyzer analyzer = new LexicalAnalyzer();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter tokens or multiple statements (type 'exit' to quit):");
+        System.out.println("Enter tokens or statements (type 'exit' to quit):");
 
         while (true) {
             System.out.print("Input: ");
@@ -99,9 +128,11 @@ public class LexicalAnalyzer {
             if (line.equalsIgnoreCase("exit")) break;
 
             try {
-                if (!line.contains(" ")) {
+                if (!line.contains(" ") && !line.contains(";")) {
+                    // Single token case
                     System.out.println(analyzer.analyzeToken(line));
                 } else {
+                    // Multiple statements or code
                     analyzer.analyzeMultipleStatements(line);
                 }
             } catch (Exception e) {
