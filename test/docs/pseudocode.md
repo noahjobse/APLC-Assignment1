@@ -97,7 +97,7 @@ if commas were grouped in different ways or if digits were split differently
 ## B6: EBNF Form
 ```text
 list = "["elements"]";
-elements = number {";" number} ;
+elements = number {"," number} ;
 number = digit {digit};
 digit = "0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9";
 
@@ -136,13 +136,13 @@ There is also more flexibility when it comes to grammar
             <digit>
                 "0"
     "]"
-	
-Compared to the BNF parse tree in B4, the EBNF tree above does not contain ambiguity.
-Such as in the BNF tree the <elements> list and "," <number> pair is ambiguous.
-This impacts the EBNF tree structure by discarding extra uses of <elements> and <number> that may
-lead to misinterpretation and more parse trees. To solve this in the EBNF tree, extra uses of
-<elements> are discarded which better shows the child components and length of <elements>.
-It also includes the repetitons of the pair "," and <number> into braces: {","<number>} and removes
-the extra uses of <number> for the double digit numbers in the array,
-which better clarifies the amount of digits in a number. 
+
+The BNF original grammar does not contain any ambiguity. The main syntax modifications
+represented in the EBNF grammar are changing the elements assignment to better represent
+repetitions of the pair "," number, the number assignment to also represent that a number
+can have multiple digits, and the assignment of digit which lists out all the possible
+digits in a number. These syntax modifications affect the EBNF parse tree structure by
+displaying repetitions of a comma followed by a number and discarding the extra <elements>
+and <number>. With these changes, the EBNF parse tree clarifies the parent and child components
+such as that every <number> is under one <elements> and the amount of digits in a number is more distinct. 
 ```
