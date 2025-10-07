@@ -21,7 +21,7 @@ Group 8 — CMPP-3020-BSA, Fall 2025
 * **Troy (B5–B6)** → EBNF rewrite + parse tree
 * **Emmanuel (B7)** → Compare BNF vs EBNF trees
 
-  * Deliverable → `/docs/PartB_Syntax.md`
+  * Deliverable → included in this README (B1–B7 section)
 
 ### Part C: Lexical Analyzer
 
@@ -32,58 +32,186 @@ Group 8 — CMPP-3020-BSA, Fall 2025
   * Deliverables:
 
     * Source code → `/src/`
-    * Documentation → `/docs/LexicalAnalyzer.md`
-    * Test outputs → `/tests/docs/LexicalAnalyzer_Tests.md`
-    * Extended writeup → `/tests/docs/FullBreakdown.md`
+    * Documentation & examples → included below
 
 ---
 
-## Project Overview
+## Part B: Syntax Description
 
-This project demonstrates concepts from **programming languages, syntax analysis, and lexical analysis**.
+### B1: Problem Statement — Find the Average
 
-* **Part A:** History of programming languages (slides).
-* **Part B:** Syntax description for “finding the average” problem.
-* **Part C:** A working **Lexical Analyzer in Java** that classifies tokens and validates simple statements.
+You can calculate the average of a set of numbers using the formula:
 
----
+**Formula:**
+[
+\text{Average} = \frac{\text{sum of all numbers}}{\text{count of numbers}}
+]
 
-## Features
-
-* **Single Token Analysis**
-
-  * Detects: Keywords, Identifiers, Positive Integers, Decimal Numbers
-  * Invalid tokens flagged with clear error messages
-
-* **Multiple Statement Analysis**
-
-  * Supports declarations with optional initialization:
-
-    ```java
-    int a;
-    double b = 5;
-    ```
-  * Builds and prints a simple parse tree:
-
-    ```
-    ---- Parse Tree ----
-    Statement
-     ├── Type: double
-     ├── Identifier: b
-     ├── Operator: =
-     └── Value: 5
-    ```
-
-* **Error Handling**
-
-  * Invalid statements/tokens produce `[Error] ...` messages
-  * Handles edge cases (empty input, malformed syntax, bad characters)
+**Example:**
+[
+\text{sum} = 5 + 8 + 12 + 4 + 10 = 39,\ \text{Average} = 39 / 5 = 7.8
+]
 
 ---
 
-## Examples
+### B2: Pseudocode
 
-### Single Token Analysis
+```text
+sum = 0
+count = 0
+
+FOR each value IN numbers DO
+    sum = sum + value
+    count = count + 1
+END FOR
+
+IF count = 0 THEN
+    print "This list is empty, unable to take average."
+ELSE
+    average = sum / count
+    print average
+END IF
+```
+
+---
+
+### B3: BNF for [list] of Numbers (Positive Only)
+
+```bnf
+<list>     ::= "[" <elements> "]"
+<elements> ::= <number> | <number> "," <elements>
+<number>   ::= <digit> | <digit> <number>
+<digit>    ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+```
+
+---
+
+### B4: Parse Tree for Example Input
+
+```text
+<list>
+    "["
+    <elements>
+        <number>
+            <digit>
+                "5"
+        ","
+        <elements>
+            <number>
+                <digit>
+                    "8"
+            ","
+            <elements>
+                <number>
+                    <digit>
+                        "1"
+                    <digit>
+                        "2"
+                ","
+                <elements>
+                    <number>
+                        <digit>
+                            "4"
+                    ","
+                    <elements>
+                        <number>
+                            <digit>
+                                "1"
+                            <digit>
+                                "0"
+    "]"
+```
+
+---
+
+### B5: Is the Grammar Ambiguous?
+
+The grammar of the parse tree is **unambiguous** because each input is clearly defined.
+
+* Commas separate elements.
+* Multi-digit numbers like `12` are grouped correctly.
+* Ambiguity would only arise if `<elements>` were defined recursively, e.g.:
+
+  ```bnf
+  <elements> ::= <elements> "," <elements>
+  ```
+
+  Then `1,2,3` could be interpreted as `(1, (2, 3))` or `((1, 2), 3)`.
+
+---
+
+### B6: EBNF Form
+
+```ebnf
+list     = "[" elements "]" ;
+elements = number { "," number } ;
+number   = digit { digit } ;
+digit    = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+```
+
+---
+
+### B7: EBNF Form Parse Tree
+
+```text
+<list>
+    "["
+    <elements>
+        <number>
+            <digit>
+                "5"
+        {"," number}
+            ","
+            <number>
+                <digit>
+                    "8"
+            ","
+            <number>
+                <digit>
+                    "1"
+                <digit>
+                    "2"
+            ","
+            <number>
+                <digit>
+                    "4"
+            ","
+            <number>
+                <digit>
+                    "1"
+                <digit>
+                    "0"
+    "]"
+```
+
+Compared to the BNF parse tree in B4, the EBNF version removes ambiguity by explicitly grouping repetitions using `{ "," number }`. This is more concise and ensures multi-digit numbers are parsed as a single `<number>` node.
+
+---
+
+## Part C: Lexical Analyzer
+
+### Features
+
+* Single Token Analysis
+
+  * Keywords, Identifiers, Integer Literals, Decimal Literals
+  * Invalid tokens flagged with `[Error]`
+
+* Multiple Statement Analysis
+
+  * Supports declarations with optional initialization
+  * Prints a **Parse Tree** showing type, identifier, operator, value
+
+* Error Handling
+
+  * Detects malformed input and invalid syntax
+  * Skips empty statements safely
+
+---
+
+### Examples
+
+**Single Token Input**
 
 | Input   | Output                               |
 | ------- | ------------------------------------ |
@@ -93,17 +221,13 @@ This project demonstrates concepts from **programming languages, syntax analysis
 | `12.5`  | Token: 12.5 -> Decimal Literal       |
 | `!abc`  | [Error] "!abc" is not a valid token. |
 
----
-
-### Multiple Statement Analysis
-
-**Input:**
+**Multiple Statements Input**
 
 ```java
 int a; double b = 5;
 ```
 
-**Output:**
+**Output**
 
 ```
 ---- Parse Tree ----
@@ -121,7 +245,7 @@ Statement
 
 ---
 
-## Flow of Lexical Analysis
+### Flow of Lexical Analysis
 
 ```
           +---------------------+
@@ -159,21 +283,20 @@ LexicalAnalyzer/
 ├── src/
 │   └── LexicalAnalyzer.java
 ├── docs/
-│   ├── PartB_Syntax.md
-│   └── LexicalAnalyzer.md
+│   └── README.md (this file)
+├── presentation/
+│   └── History_of_PLs.pdf
 ├── tests/
 │   └── docs/
 │       ├── LexicalAnalyzer_Tests.md
 │       └── FullBreakdown.md
-├── presentation/
-│   └── History_of_PLs.pdf
 ├── run-lexer.bat
-└── README.md   (this file)
+└── README.md
 ```
 
 ---
 
-## ▶How to Run
+## How to Run
 
 **Option 1: Batch File (Windows, recommended)**
 
@@ -194,8 +317,8 @@ java LexicalAnalyzer
 
 ## Deliverables Summary
 
-| Part  | Team Member(s)                            | Deliverables                                        |
-| ----- | ----------------------------------------- | --------------------------------------------------- |
-| **A** | Qi                                        | `/presentation`                                     |
-| **B** | Noah (B1–B4), Troy (B5–B6), Emmanuel (B7) | `/docs/PartB_Syntax.md`                             |
-| **C** | Yisong                                    | `/src/`, `/docs/LexicalAnalyzer.md`, `/tests/docs/` |
+| Part | Team Member(s)                            | Deliverables                       |
+| ---- | ----------------------------------------- | ---------------------------------- |
+| A    | Qi                                        | `/presentation`                    |
+| B    | Noah (B1–B4), Troy (B5–B6), Emmanuel (B7) | Included in this README            |
+| C    | Yisong                                    | `/src/`, examples + docs in README |
