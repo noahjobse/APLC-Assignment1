@@ -97,6 +97,7 @@ public class LexicalAnalyzer {
             System.out.println(" ├── Operator: " + operator);
             System.out.println(" └── Value: " + value);
         }
+        System.out.println(); // newline for readability
     }
 
     /**
@@ -105,10 +106,11 @@ public class LexicalAnalyzer {
     public void analyzeMultipleStatements(String code) {
         List<String> statements = splitStatements(code);
         for (String stmt : statements) {
+            if (stmt.isEmpty()) continue; // skip empty statements
             try {
                 analyzeSingleStatement(stmt);
             } catch (IllegalArgumentException e) {
-                System.out.println("[Input Error] " + e.getMessage());
+                System.out.println("[Error] " + e.getMessage());
             }
         }
     }
