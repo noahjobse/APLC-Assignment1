@@ -27,8 +27,11 @@ if errorlevel 1 (
     echo.
     echo ❌ Failed to run LexicalAnalyzer. Make sure the class name matches the file.
     pause
+    cd ..
     exit /b
 )
+
+cd ..
 
 echo.
 echo Program finished. Press any key to exit.
